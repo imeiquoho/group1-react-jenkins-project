@@ -2,7 +2,6 @@ pipeline {
     agent any
 
     stages {
-
         stage('Build') {
             steps {
                 sh 'npm install'
@@ -23,7 +22,8 @@ pipeline {
 
         stage('Run Container') {
             steps {
-                sh 'docker run -d -p 3003:3000 group1-app || true'
+                sh 'docker rm -f group1-app-container || true'
+                sh 'docker run -d --name group1-app-container -p 3003:3000 group1-app'
             }
         }
     }
